@@ -47,7 +47,7 @@ module Homeland
     config.mongoid.logger = Logger.new($stdout, :warn)
     
     require "rack/sprockets"
-    config.middleware.use "Rack::Sprockets", :load_path => ["app/javascripts/", "app/javascripts/lib/"], :hosted_at => '/assets'
+    #config.middleware.use "Rack::Sprockets", :load_path => ["app/javascripts/", "app/javascripts/lib/"], :hosted_at => '/assets'
     
     require "rack/less"
     config.middleware.use "Rack::Less"
@@ -63,5 +63,5 @@ I18n.locale = 'zh-CN'
 # 配置文件载入
 APP_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
 
-require 'yaml'
-YAML::ENGINE.yamler= 'syck'
+#require 'yaml'
+#YAML::ENGINE.yamler= 'syck'

@@ -1,5 +1,4 @@
 Homeland::Application.routes.draw do
-  
 
   resources :notes
   match "/file/*path" => "gridfs#serve"
