@@ -7,7 +7,7 @@ class TopicsController < ApplicationController
   private
   def init_list_sidebar 
    if !fragment_exist? "topic/init_list_sidebar/hot_nodes"
-      @hot_nodes = Node.hots.limit(20)
+      @hot_nodes = Node.hots.limit(30)
     end
     if current_user
       @user_last_nodes = Node.find_last_visited_by_user(current_user.id)
@@ -18,7 +18,7 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.xml
   def index
-    @topics = Topic.last_actived.limit(10)
+    @topics = Topic.desc(:_id).paginate(:page => params[:page], :per_page => 20)
     @sections = Section.all
     set_seo_meta("","#{APP_CONFIG['app_name']}论坛,#{APP_CONFIG['app_name']}小区论坛,#{APP_CONFIG['app_name']}业主论坛")
   end
@@ -40,7 +40,8 @@ class TopicsController < ApplicationController
   end
 
   def recent
-    @topics = Topic.recents.limit(50)
+    @topics = Topic.last_actived.limit(50)
+    # @topics = Topic.recents.limit(5)
     set_seo_meta("最近活跃的50个帖子 &raquo; 社区论坛")
     render :action => "index"
   end
